@@ -1,0 +1,34 @@
+{
+  "name": "electronjs-updater-boilerplate",
+  "version": "1.0.0",
+  "description": "An Electron app with auto-update functionality.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.khawarmehfooz.electronupdater",
+    "mac": {
+      "category": "public.app-category.utilities"
+    }
+  },
+  "publish": [
+    {
+      "provider": "github",
+      "repo": "electronjs-updater-boilerplate",
+      "owner": "KhawarMehfooz"
+    }
+  ],
+  "keywords": [],
+  "author": "Khawar Mehfooz",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^34.0.1",
+    "electron-builder": "^25.1.8"
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  }
+}
