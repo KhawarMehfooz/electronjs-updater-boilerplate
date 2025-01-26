@@ -60,15 +60,24 @@ function checkForUpdates() {
 }
 
 function setupAutoUpdater() {
+    let checkingDialog = null; // Store the reference to the checking dialog
+
     autoUpdater.on('checking-for-update', () => {
-        dialog.showMessageBox(mainWindow, {
+        checkingDialog = dialog.showMessageBox(mainWindow, {
             type: 'info',
             title: 'Checking for Updates',
             message: 'Checking for updates...',
+            buttons: [], // No buttons to make it modal-like
+            noLink: true, // Prevent any links in the dialog
         });
     });
 
     autoUpdater.on('update-available', (info) => {
+        if (checkingDialog) {
+            checkingDialog.close(); // Close the checking dialog
+            checkingDialog = null; // Clear the reference
+        }
+
         dialog
             .showMessageBox(mainWindow, {
                 type: 'info',
@@ -84,6 +93,11 @@ function setupAutoUpdater() {
     });
 
     autoUpdater.on('update-not-available', () => {
+        if (checkingDialog) {
+            checkingDialog.close(); // Close the checking dialog
+            checkingDialog = null; // Clear the reference
+        }
+
         dialog.showMessageBox(mainWindow, {
             type: 'info',
             title: 'No Updates',
@@ -118,6 +132,11 @@ function setupAutoUpdater() {
     });
 
     autoUpdater.on('error', (error) => {
+        if (checkingDialog) {
+            checkingDialog.close(); // Close the checking dialog in case of error
+            checkingDialog = null; // Clear the reference
+        }
+
         dialog.showErrorBox('Update Error', error == null ? 'Unknown error' : (error.stack || error).toString());
     });
 }

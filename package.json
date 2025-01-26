@@ -1,6 +1,6 @@
 {
   "name": "electronjs-updater-boilerplate",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An Electron app with auto-update functionality.",
   "main": "main.js",
   "scripts": {
